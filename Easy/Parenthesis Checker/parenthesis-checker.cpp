@@ -12,14 +12,14 @@ class Solution
     bool ispar(string s)
     {
          stack<char>st; 
-        for(auto it: s) {
-            if(it=='(' || it=='{' || it == '[') 
-            st.push(it); 
+        for(auto i: s) {
+            if(i=='(' || i=='{' || i == '[') 
+            st.push(i); 
             else {
                 if(st.size() == 0) return false; 
                 char ch = st.top(); 
                 st.pop(); 
-                if((it == ')' and ch == '(') or  (it == ']' and ch == '[') or (it == '}' and ch == '{')) continue;
+                if((i == ')' and ch == '(') or  (i == ']' and ch == '[') or (i == '}' and ch == '{')) continue;
                 else return false;
             }
         }
