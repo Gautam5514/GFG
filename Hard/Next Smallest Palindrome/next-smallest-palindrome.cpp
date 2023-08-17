@@ -9,47 +9,36 @@ class Solution{
 public:
 	vector<int> generateNextPalindrome(int num[], int n) {
 	    // code here
-	      vector<int> out(num, num + n);         // Copy num array for output
-        
-        int i = 0, j = n - 1;
-
-        while (i < j) {         // Convert 'out' array into a palindrome
-            out[j] = out[i];
-            ++i;
-            --j;
-        }
-
-        bool isBig = false;
-        for (int it = n / 2; it < n; ++it) {         // Check if 'out' is greater than 'num'
-            if (out[it] > num[it]) {
-                isBig = true;
-                break;
+	      bool change=1;
+        for(int i=0;i<n/2;i++){
+            if(num[i]>num[n-i-1]){
+                change=0;
             }
-            if (out[it] < num[it])
-                break;
+            else if(num[i]<num[n-i-1])change=1;
+            
+            num[n-i-1]=num[i];
         }
-
-        if (isBig)         // If 'out' is greater, no further operation needed
-            return out;
-
-        i = (n % 2) ? n / 2 : (n / 2 - 1);          // Mids of the out array
-        j = n / 2;
-
-        while (i >= 0) {         // Incrementing numbers from the middle to the corners
-            if (out[i] < 9) {
-                out[i] = out[j] = out[i] + 1;
-                return out;
+        vector<int>ans(n);
+        for(int i=0;i<n;i++)ans[i]=num[i];
+        int carry=change;
+        int ind=n/2;
+        while(carry and ind<n){
+            if(num[ind]==9){
+                ans[ind]=0;
+                ans[n-ind-1]=0;
             }
-            out[i] = out[j] = 0;
-            --i;
-            ++j;
+            else{
+                ans[ind]++;
+                ans[n-ind-1]=ans[ind];
+                carry=0;
+            }
+            ind++;
         }
-
-        out[0] = 1;         // If all digits are 9, convert to [1, 0, 0, ..., 0, 1]
-        out.push_back(1);
-
-        return out;
-    
+        if(carry){
+            ans[0]=1;
+            ans.push_back(1);
+        }
+        return ans;
 	}
 
 };
