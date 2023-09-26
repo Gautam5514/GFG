@@ -10,43 +10,39 @@ class Solution{
     public:
     // arr[] : int input array of integers
     // k : the quadruple sum required
-     vector<vector<int> > fourSum(vector<int> &num, int target) {
-        vector<vector<int>> res;
-        if(num.empty()) return res;
-        
-        int n = num.size();
-        sort(num.begin(), num.end());
-        
-        for(int i=0; i<n; i++){
-            for(int j=i+1; j<n;j++){
-                int target_2 = target-num[j]-num[i];
-                int front = j+1;
-                int right = n-1;
-                
-                while(front<right){
-                    int two_sum = num[front]+num[right];
-                    if(two_sum < target_2) front++;
-                    else if(two_sum>target_2) right--;
-                    else{
-                        vector<int> quadrup(4,0);
-                        quadrup[0] = num[i];
-                        quadrup[1] = num[j];
-                        quadrup[2] = num[front];
-                        quadrup[3] = num[right];
-                        res.push_back(quadrup);
-                        while(front<right && num[front] == quadrup[2]) ++front;
-                        while(front<right && num[right] == quadrup[3]) --right;
-                        
+    vector<vector<int> > fourSum(vector<int> &arr, int k) {
+        // Your code goes here
+        vector<vector<int>> ans;
+        int n=arr.size();
+        int p,q;
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n-3;i++)
+        {
+            for(int j=i+1;j<n-2;j++)
+            {
+                p=j+1;
+                q=n-1;
+                while(p<q)
+                {
+                    if(arr[i]+arr[j]+arr[p]+arr[q]==k)
+                    {
+                    vector<int>nums;
+                    nums={arr[i],arr[j],arr[p],arr[q]};
+                    ans.push_back(nums);
+                   
                     }
+                    if(arr[i]+arr[j]+arr[p]+arr[q]<k)
+                    p++;
+                    else
+                    q--;
                 }
-                
-                while(j+1<n&& num[j+1] == num[j]) ++j;
             }
-            while(i+1<n && num[i+1] == num[i]) ++i;
         }
-        
-        
-        return res;
+         sort(ans.begin(), ans.end());
+
+    // Use the unique algorithm to remove duplicates
+    ans.erase(unique(ans.begin(), ans.end()), ans.end());
+        return ans;
     }
 };
 
