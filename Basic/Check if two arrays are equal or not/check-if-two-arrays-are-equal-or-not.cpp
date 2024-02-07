@@ -16,7 +16,7 @@ class Solution{
         //code here
         sort(A.begin(), A.end());
         sort(B.begin(), B.end());
-        return A == B;
+        return A== B;
     }
 };
 
