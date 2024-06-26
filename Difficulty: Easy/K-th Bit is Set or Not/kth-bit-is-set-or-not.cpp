@@ -17,8 +17,12 @@ class Solution
     {
         // Your code here
         // It can be a one liner logic!! Think of it!!
-        if((n >> k) & 1) return true;
-        else return false;
+        // if((n >> k) & 1) return true;
+        // else return false;
+        if((n & (1 << k)) == 0)
+            return false;
+        else 
+            return true;
     }
 };
 
