@@ -10,11 +10,11 @@ public:
     long long sumOfDivisors(int N)
     {
         // Write Your Code here
-        long long totalSum = 0;
-        for(int i = 1; i <= N; i++) {
-            totalSum += (N / i) * i;
+        long long ans = 0;
+        for(long long i = 1; i <= N; i++) {
+            ans += (N / i) * i;
         }
-        return totalSum;
+        return ans;
     }
 };
 
