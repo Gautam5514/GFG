@@ -10,11 +10,11 @@ class Solution {
   public:
     long long sumOfSeries(long long n) {
         // code here
-        long long ans = 0;
+        long long sum = 0;
         for(long long i = 1; i <= n; i++) {
-            ans += (i * i * i);
+            sum += (i * i * i);
         }
-        return ans;
+        return sum;
     }
 };
 
