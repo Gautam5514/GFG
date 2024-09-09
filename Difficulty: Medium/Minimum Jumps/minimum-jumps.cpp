@@ -10,7 +10,7 @@ class Solution {
   public:
     int minJumps(vector<int>& arr) {
         // Your code here
-            int n = arr.size();
+       int n = arr.size();
        int far = 0;
        int curr = 0;
        int jump = 0;
