@@ -8,16 +8,17 @@ public:
     int evenlyDivides(int N){
         //code here
         int ans = 0;
-        int count = 0;
         int original = N;
         while(N > 0) {
             int temp = N % 10;
-            N /= 10;
             if(temp != 0 && original % temp == 0)
-            count++;
+           
+                ans++;
+            
+             N /= 10;
             
         }
-        return count;
+        return ans;
     }
 };
 
