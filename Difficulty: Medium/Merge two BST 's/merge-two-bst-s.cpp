@@ -96,35 +96,39 @@ class Solution {
   public:
     // Function to return a list of integers denoting the node
     // values of both the BST in a sorted order.
-    Node* insert(Node* root, int value) {
+    void inorder(Node* root, vector<int>& ans) {
         if(!root) {
-            return new Node(value);
+            return;
         }
-        if(value >= root -> data) {
-            root -> right = insert(root->right,value);
-        } else if (value < root -> data) {
-            root->left = insert(root->left,value);
-        }
-        return root;
-    }
-    void inorder1(Node *root1, Node* root2) {
-        if(!root1) return;
-        inorder1(root1->left, root2);
-        insert(root2, root1->data);
-        inorder1(root1->right, root2);
-    }
-    void inorder2(Node *root, vector<int>& arr) {
-        if(!root) return;
-        inorder2(root->left, arr);
-        arr.push_back(root -> data);
-        inorder2(root->right, arr);
+        inorder(root -> left, ans);
+        ans.push_back(root -> data);
+        inorder(root -> right, ans);
     }
     vector<int> merge(Node *root1, Node *root2) {
-        // Your code here
-        vector<int> arr;
-        inorder1(root1, root2);
-        inorder2(root2, arr);
-        return arr;
+        vector<int> ans1;
+        vector<int> ans2;
+        vector<int> ans;
+        
+        inorder(root1, ans1);
+        inorder(root2, ans2);
+        
+        
+        int i = 0, j = 0;
+        
+        while(i < ans1.size() && j < ans2.size()) {
+            if(ans1[i] < ans2[j]) {
+                ans.push_back(ans1[i++]);
+            } else {
+                ans.push_back(ans2[j++]);
+            }
+        }
+            while(i < ans1.size()) {
+                ans.push_back(ans1[i++]);
+            }
+            while(j < ans2.size()) {
+                ans.push_back(ans2[j++]);
+            }
+        return ans;
     }
 };
 
