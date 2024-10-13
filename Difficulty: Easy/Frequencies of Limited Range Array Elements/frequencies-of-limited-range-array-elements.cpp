@@ -9,13 +9,13 @@ class Solution {
     // Function to count the frequency of all elements from 1 to N in the array.
     void frequencyCount(vector<int>& arr, int N, int P) {
         // do modify in the given array
-        unordered_map<long long , int> mp;
-        for(long long i = 0; i < N; i++) {
-            mp[arr[i]]++;
+        
+        unordered_map<int, int> mp;
+        for(auto a : arr) {
+            mp[a]++;
         }
-        // traverse in the freq of all no. if present then give the freq 
-        for(int i = 0; i < N; i++) {
-            arr[i] = mp[i+1]; // print the frequency of array
+        for(int i = 1; i <= arr.size(); i++) {
+            arr[i-1] = mp[i];
         }
     }
 };
