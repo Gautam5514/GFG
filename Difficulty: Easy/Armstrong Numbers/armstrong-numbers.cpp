@@ -9,17 +9,17 @@ using namespace std;
 class Solution {
   public:
     string armstrongNumber(int n) {
-        // code here
+        int orginal = n;
+       
         int sum = 0;
-        int Original = n;
-        // find the total length from  the armstrong number
-        int k = to_string(n).length();
+         int k = to_string(n).length();
         while(n > 0) {
+            
             int temp = n % 10;
             sum += pow(temp, k);
-            n /= 10;
+            n = n / 10;
         }
-        if(Original == sum) {
+        if(orginal == sum) {
             return "true";
         } else {
             return "false";
