@@ -11,15 +11,18 @@ class Solution {
 
     bool checkDuplicatesWithinK(vector<int>& arr, int k) {
         // your code
-          unordered_map<int, int>hash;
-        for(int i=0; i<k; i++){
-            if(hash[arr[i]]) return true;
-            hash[arr[i]]=1;
+        unordered_map<int, int> mp;
+        int n = arr.size();
+        if(n == 1) return false; // not any repeted no.
+        for(int i = 0; i <= k; i++) {
+            mp[arr[i]]++;
+            if(mp[arr[i]] > 1) return true; // there is exist more than 1
         }
-        for(int i=0; i+k<arr.size();i++){
-            if(hash[arr[i+k]]) return true;
-            if(arr[i]==arr[i+k]) return true;
-            hash[arr[i]]=0; hash[arr[i+k]]=1;
+        int last = 0; // if move forward then back is indicate 0 in map
+        for(int i = k + 1; i < n; i++) {
+            mp[arr[last++]]--;
+            mp[arr[i]]++;
+            if(mp[arr[i]] > 1) return true;
         }
         return false;
     }
