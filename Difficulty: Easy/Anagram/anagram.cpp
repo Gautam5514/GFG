@@ -11,19 +11,14 @@ class Solution {
         // Your code here
         sort(s1.begin(), s1.end());
         sort(s2.begin(), s2.end());
-        int n = s1.length();
-        int m = s2.length();
         
-        if(n != m) {
-            return false;
+        if(s1 == s2) {
+            return true;
+        } else {
+            false;
         }
+        return false;
         
-        int i = 0, j = 0;
-        while(i < n) {
-            if(s1[i++] != s2[j++])
-                return false;
-        }
-        return true;
     }
 };
 
