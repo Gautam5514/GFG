@@ -2,41 +2,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
   public:
-    // Function to find the number of islands.
-    void solve(int i, int j,vector<vector<char>>&grid, int n, int m){
-        grid[i][j] = '2';
-        int dx[] = {-1,-1,-1,0,0,1,1,1};
-        int dy[] = {-1,0,1,-1,1,-1,0,1};
+  
+   int n,m;
+    vector<vector<int>> dir{{1,0},{-1,0},{0,-1},{0,1},{1,1},{-1,-1},{1,-1},{-1,1}};
+    void solve(vector<vector<char>>& grid,int i,int j){
         
-        for(int k=0;k<8;k++){
-            int nx = i+dx[k];
-            int ny = j+dy[k];
-            if(nx>=0 && ny>=0 && nx<n && ny<m && grid[nx][ny] == '1' ){
-                solve(nx,ny,grid,n,m);
-            }
+        if(i<0 || j<0 || i>=n || j>=m || grid[i][j]=='W') return;
+        grid[i][j]='W';
+        for(auto &it:dir){
+            int newi=i+it[0];
+            int newj=j+it[1];
+            solve(grid,newi,newj);
         }
+        
     }
-    int numIslands(vector<vector<char>>& grid) {
-        // Code here
-        int n = grid.size();
-        int m = grid[0].size();
-        // vector<vector<int>>visited(n,vector<int>(m,0));
-        int count = 0;
+    int countIslands(vector<vector<char>>& grid) {
+        
+        n=grid.size();
+        m=grid[0].size();
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j] == '1'){
+                if(grid[i][j]=='L'){
+                    solve(grid,i,j);
                     count++;
-                    solve(i,j,grid,n,m);
                 }
             }
         }
         return count;
     }
-
+    
 };
+
 
 //{ Driver Code Starts.
 int main() {
@@ -52,8 +54,11 @@ int main() {
             }
         }
         Solution obj;
-        int ans = obj.numIslands(grid);
+        int ans = obj.countIslands(grid);
         cout << ans << '\n';
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
