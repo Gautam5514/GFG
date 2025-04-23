@@ -9,18 +9,20 @@ class Solution {
   public:
     int missingNum(vector<int>& arr) {
         // code here
-         long long int  n = arr.size();
-        long long int expectedSum = ((n+1)*(n+2))/2;
-        long long int  actualSum = 0;
-        for(int i = 0; i < n ; i++)
-        {
-            actualSum += arr[i];    
-        }
-        long long int ans = expectedSum - actualSum;
-
-        return ans;
+        int n = arr.size() + 1;
+        
+        // create a variable where store all the sum of n
+        int sum = 0;
+        for(int i = 1; i <= n; i++) 
+            sum += i;
+        
+        // now create one more variable which is store the our arr value
+        int actual_sum = 0;
+        for(int i = 0; i < arr.size(); i++) 
+            actual_sum += arr[i];
         
         
+        return sum - actual_sum;
     }
 };
 
