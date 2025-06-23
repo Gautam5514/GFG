@@ -12,13 +12,15 @@ class Solution {
   public:
     Node* reverseList(struct Node* head) {
         // code here
-        Node* dummy = NULL;
+        Node* dummyNode = NULL;
+        Node* curr = NULL;
+        
         while(head != NULL) {
-            Node* curr = head -> next;
-            head -> next = dummy;
-            dummy = head;
+            curr = head -> next;
+            head -> next = dummyNode;
+            dummyNode = head;
             head = curr;
         }
-        return dummy;
+        return dummyNode;
     }
 };
