@@ -1,51 +1,24 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
-
   public:
     int maxWater(vector<int> &arr) {
         // code here
-        int l = 0, h = arr.size() - 1, area = 0, t = 0;
-        while(l < h) {
-            area = min(arr[l], arr[h]) * (h - l);
-            t = max(t, area);
-            if(arr[l] < arr[h])
-            l++;
-            else
-            h--;
+            int n = arr.size();
+        int left = 0, right = n - 1;
+        int maxWater = 0;
+
+        while (left < right) {
+            int height = min(arr[left], arr[right]);
+            int width = right - left;
+            maxWater = max(maxWater, height * width);
+
+            // Move the pointer at the smaller line
+            if (arr[left] < arr[right]) {
+                left++;
+            } else {
+                right--;
+            }
         }
-        return t;
+
+        return maxWater;
     }
 };
-
-//{ Driver Code Starts.
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr;
-        string input;
-
-        // Read first array
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-
-        Solution ob;
-        int res = ob.maxWater(arr);
-
-        cout << res << endl << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
