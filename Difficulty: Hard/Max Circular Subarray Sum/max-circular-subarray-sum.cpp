@@ -2,28 +2,27 @@ class Solution {
   public:
     int maxCircularSum(vector<int> &arr) {
         // code here
-        int total = 0;
-        
-        int maxSum = arr[0], curMax = 0;
-        int minSum = arr[0], curMin = 0;
-        
-        for(auto a : arr) {
-            
-            // find the max
-            
-            curMax = max(a, curMax + a);
-            maxSum = max(maxSum, curMax);
-            
-            // find the min
-            
-            curMin = min(a, curMin + a);
-            minSum = min(minSum, curMin);
-            
-            total += a;
+         int totalSum = 0;
+    
+    int maxEnding = arr[0], maxKadane = arr[0];
+    int minEnding = arr[0], minKadane = arr[0];
+
+    for (int i = 0; i < arr.size(); i++) {
+        totalSum += arr[i];
+
+        if (i > 0) {
+            maxEnding = max(arr[i], maxEnding + arr[i]);
+            maxKadane = max(maxKadane, maxEnding);
+
+            minEnding = min(arr[i], minEnding + arr[i]);
+            minKadane = min(minKadane, minEnding);
         }
-        
-        if(maxSum < 0) return maxSum;
-        
-        return max(maxSum, total - minSum);
+    }
+
+    // If all elements are negative
+    if (maxKadane < 0)
+        return maxKadane;
+
+    return max(maxKadane, totalSum - minKadane);
     }
 };
