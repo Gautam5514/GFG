@@ -1,65 +1,45 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
-    int maxWater(vector<int> &arr) {
+    int maxWater(vector<int> &height) {
         // code here
-         if (arr.empty()) return 0;
-
-    int left = 0, right = arr.size() - 1;
-    int left_max = 0, right_max = 0;
-    int water_trapped = 0;
-
-    while (left <= right) {
-        if (arr[left] <= arr[right]) {
-            if (arr[left] >= left_max) {
-                left_max = arr[left]; 
+         int n = height.size();
+        
+        // Initialize two pointers at both ends of the array
+        int left = 0;
+        int right = n - 1;
+        
+        // Variables to track the maximum height to the left and right
+        int maxLeft = 0;
+        int maxRight = 0;
+        
+        // Variable to store total trapped water
+        int totalWater = 0;
+        
+        // Iterate until left pointer meets right pointer
+        while (left <= right) {
+            // If left bar is smaller or equal to right bar
+            if (height[left] <= height[right]) {
+                // If current left bar is higher than maxLeft, update maxLeft
+                if (height[left] >= maxLeft) {
+                    maxLeft = height[left];
+                } else {
+                    // Water trapped on left is difference between maxLeft and current height
+                    totalWater += maxLeft - height[left];
+                }
+                left++; // Move left pointer to the right
             } else {
-                water_trapped += left_max - arr[left];  
+                // If current right bar is higher than maxRight, update maxRight
+                if (height[right] >= maxRight) {
+                    maxRight = height[right];
+                } else {
+                    // Water trapped on right is difference between maxRight and current height
+                    totalWater += maxRight - height[right];
+                }
+                right--; // Move right pointer to the left
             }
-            left++;
-        } else {
-            if (arr[right] >= right_max) {
-                right_max = arr[right]; 
-            } else {
-                water_trapped += right_max - arr[right];  
-            }
-            right--;
         }
-    }
-
-    return water_trapped;
+        
+        // Return total trapped water
+        return totalWater;
     }
 };
-
-//{ Driver Code Starts.
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr;
-        string input;
-
-        // Read first array
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-
-        Solution ob;
-        int res = ob.maxWater(arr);
-
-        cout << res << endl << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
